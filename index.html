@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let timeout;
+    function optimisedInterest(){
+        clearTimeout(timeout);
+        timeout =  setTimeout(function(){
+            interest();
+        },1000);
+    }
+    async function interest(){
+        let a = document.getElementById("principal").value;
+        let b = document.getElementById("rate").value;
+        let c = document.getElementById("time").value;
+        let response = await fetch("http://localhost:3005/interest?principal=" + a + "&rate=" + b + "&time=" + c)
+        let answer = await response.text();
+        document.getElementById("ans").innerHTML = answer;
+    }
+</script>
+<body>
+    <input oninput="optimisedInterest()" id = "principal" type="text" placeholder="Principal"><br><br>
+    <input oninput="optimisedInterest()" id = "rate" type="text" placeholder="Rate"><br><br>
+    <input oninput="optimisedInterest()" id = "time" type="text" placeholder="Time"><br><br>
+    <div id = "ans"></div>
+</body>
+</html>
